@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CalcContext } from '../context/CalcContext';
 
 const MathSignsView = () => {
+
+    const {
+        signClickHandler,
+        resetClickHandler
+    } = useContext(CalcContext)
 
     const operators = ['+', '-', '/', '*'];
 
@@ -12,13 +18,13 @@ const MathSignsView = () => {
                     <button
                         key={i}
                         value={btn}
-                        onClick={() => console.log(`${btn} clicked`)} // add func
+                        onClick={() => signClickHandler} // add func
                     >{btn}</button>
                 );
             })
         }
 
-        <button onClick={() => console.log('DEL clicked')}>DEL</button>
+        <button onClick={() => resetClickHandler}>DEL</button>
     </div>
   )
 }

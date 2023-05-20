@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { CalcContext } from '../context/CalcContext'
 
 const DisplayView = () => {
+
+  const {
+    number,
+  } = useContext(CalcContext);
+
   return (
-    <div className='displayView'>display</div>
+    <div className='displayView'>{number}</div>
   )
 }
 
