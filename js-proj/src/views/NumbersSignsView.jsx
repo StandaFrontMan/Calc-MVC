@@ -4,9 +4,9 @@ import { CalcContext } from '../context/CalcContext';
 const NumbersSignsView = () => {
 
     const {
-        number,
-        setNumber,  
-        numClickHandler
+        numClickHandler,
+        commaClickHandler,
+        equalsClickHandler
     } = useContext(CalcContext);
 
     const numbers = [];
@@ -17,7 +17,7 @@ const NumbersSignsView = () => {
                 <button
                     key={i}
                     value={i}
-                    onClick={() => numClickHandler} //пиши функции ждя кнопок 
+                    onClick={(e) => numClickHandler(e)} //пиши функции ждя кнопок 
                 >{i}</button>
             )
         }
@@ -29,9 +29,18 @@ const NumbersSignsView = () => {
     <div className='numbers'>
         {numbersRender()}
 
-        <button value={'.'}>.</button>
-        <button value={0}>0</button>
-        <button className='equalsSign'>=</button>
+        <button
+            value={'.'}
+            onClick={(e) => commaClickHandler(e)}
+        >.</button>
+        <button
+            value={0}
+            onClick={(e) => numClickHandler(e)}
+        >0</button>
+        <button
+            className='equalsSign'
+            onClick={() => equalsClickHandler()}
+        >=</button>
 
     </div>
   )

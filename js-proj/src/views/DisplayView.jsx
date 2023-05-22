@@ -5,10 +5,11 @@ const DisplayView = () => {
 
   const {
     number,
-  } = useContext(CalcContext);
+    result
+  } = useContext(CalcContext)
 
   return (
-    <div className='displayView'>{number}</div>
+    <div className='displayView'>{number ? number : result}</div>
   )
 }
 

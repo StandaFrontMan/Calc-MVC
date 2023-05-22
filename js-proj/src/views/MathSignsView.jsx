@@ -18,13 +18,13 @@ const MathSignsView = () => {
                     <button
                         key={i}
                         value={btn}
-                        onClick={() => signClickHandler} // add func
+                        onClick={(e) => signClickHandler(e)} // add func
                     >{btn}</button>
                 );
             })
         }
 
-        <button onClick={() => resetClickHandler}>DEL</button>
+        <button onClick={() => resetClickHandler()}>DEL</button>
     </div>
   )
 }

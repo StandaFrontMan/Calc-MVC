@@ -8,48 +8,84 @@ const CalcController = () => {
   const [number, setNumber] = useState(0);
   const [result, setResult] = useState(0);
 
-  const numClickHandler = (i) => {
-    // e.preventDefault();
-    const value = i;
+  const numClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
 
-    if (number.length < 16) {
-      setNumber(number === 0 && value === '0' ? '0' : number % 1 === 0 ? Number(number + value) : number + value)
-      setResult(!sign ? 0 : result)
+    const numberString = value.toString();
+    let numberValue;
+
+    if (numberString === '0' && number === 0) {
+      numberValue = '0'
+    } else {
+      numberValue = Number(number + numberString)
     }
 
+    setNumber(numberValue)
 
-    console.log(number);
+    console.log(numberValue);
   }
 
   const equalsClickHandler = () => {
 
+    if (result && number) {
+      const math = (a, b, sign) => {
+        const result = {
+          '+': (a, b) => a + b,
+          '-': (a, b) => a - b,
+          '/': (a, b) => a / b,
+          '*': (a, b) => a * b,
+        }
+        return result[sign](a, b)
+      }
+
+      setResult(
+        math(result, number, sign)
+      );
+      setSign('');
+      setNumber(0);
+    }
+    console.log(result, number);
   }
 
-  const signClickHandler = () => {
+  const signClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
 
+    setSign(value);
+    setResult(!result && number ? number : result);
+    setNumber(0)
+
+    console.log(value, result);
   }
 
-  const commaClickHandler = () => {
+  const commaClickHandler = (e) => {
+    e.preventDefault();
+    const value = e.target.innerHTML;
 
+    setNumber(!number.toString().includes('.') ? number + value : number)
+    console.log(value);
   }
 
   const resetClickHandler = () => {
-    console.log(number);
+    setNumber(0);
+    setResult(0);
+    setSign('')
   }
 
   return (
     <div className='caclView'>
       <CalcContext.Provider value={{
-        number,
-        setNumber,
-        
-        numClickHandler,
-        equalsClickHandler,
-        signClickHandler,
-        commaClickHandler,
-        resetClickHandler
-      }}>
-        <CalcView />
+          number,
+          result,
+          numClickHandler,
+          equalsClickHandler,
+          signClickHandler,
+          commaClickHandler,
+          resetClickHandler
+        }}
+      >
+        <CalcView/>
       </CalcContext.Provider>
     </div>
   )
